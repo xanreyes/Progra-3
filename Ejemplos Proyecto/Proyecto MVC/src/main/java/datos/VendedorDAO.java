@@ -26,18 +26,18 @@ public class VendedorDAO {
     private static final String SQL_QUERY = "SELECT id_vendedor, nombrevendedor, direvendedor FROM vendedor WHERE id_vendedor = ?";
 
     public List<Vendedor> select() {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        Connection conn = null; //abre la base de datos (conexion)
+        PreparedStatement stmt = null; //prepara la instruccion que ira en la base de datos (comandos sql) 
+        ResultSet rs = null; //conjunto de datos (record set)
         Vendedor vendedor = null;
         List<Vendedor> vendedores = new ArrayList<Vendedor>();
 
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
-            rs = stmt.executeQuery();
+            rs = stmt.executeQuery(); 
             while (rs.next()) {
-                int id_vendedor = rs.getInt("id_vendedor");
+                int id_vendedor = rs.getInt("id_vendedor"); //Campo de la base de datos
                 String nombre = rs.getString("nombrevendedor");
                 String direccion = rs.getString("direvendedor");
                 
@@ -49,7 +49,7 @@ public class VendedorDAO {
                 vendedores.add(vendedor);
             }
 
-        } catch (SQLException ex) {
+        } catch (SQLException ex) { //Errores
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
